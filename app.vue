@@ -1,9 +1,9 @@
 <template>
     <div class="min-h-dvh">
-        <Toast />
-        <DynamicDialog />
-        <ConfirmDialog></ConfirmDialog>
-        <MiscLoadingIndicator></MiscLoadingIndicator>
+        <LazyToast />
+        <LazyDynamicDialog />
+        <LazyConfirmDialog></LazyConfirmDialog>
+        <LazyMiscLoadingIndicator></LazyMiscLoadingIndicator>
         <NuxtLayout>
             <NuxtPage />
         </NuxtLayout>
