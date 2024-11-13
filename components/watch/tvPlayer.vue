@@ -40,13 +40,14 @@ const servers = [
 ];
 
 const episodes = computedAsync(async () => {
+    console.log("Fetching episodes");
     return (
         await watchStore.watchRepo.getSeasonData(
             id,
             Number(selectedSeason.value),
         )
     ).episodes;
-}, null);
+}, []);
 
 const iframeSrc = computed(() => {
     switch (selectedSource.value) {
@@ -109,7 +110,7 @@ watch(iframe, () => {
                     <Select v-model="selectedSeason" class="rounded p-2" :options="tvData.seasons"
                         data-key="season_number" option-value="season_number" option-label="name">
                     </Select>
-                    <Select v-model="selectedEpisode" class="rounded p-2" default-value="1" :options="episodes || []"
+                    <Select v-model="selectedEpisode" class="rounded p-2"  :options="episodes" v-if="episodes.length > 0"
                         option-value="episode_number" option-label="name">
                     </Select>
                     <Select v-model="selectedSource" class="rounded p-2" :options="servers" option-value="value"
@@ -122,7 +123,7 @@ watch(iframe, () => {
                 Try other servers if it is taking too long to load.
             </div>
 
-            <iframe ref="iframe" :src="iframeSrc" class="w-full h-full z-50" frameborder="0" allowfullscreen></iframe>
+            <iframe ref="iframe" :src="iframeSrc" class="w-full h-full z-50" frameborder="0" allowfullscreen sandbox></iframe>
         </div>
     </Teleport>
 </template>

@@ -5,7 +5,6 @@ const query = ref<string>("");
 const chatResponse = ref<any>();
 
 async function askQuestion() {
-    const response = gptStore.basicChat(query.value);
 }
 </script>
 

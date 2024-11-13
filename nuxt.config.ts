@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     "@nuxt/fonts",
     "@vee-validate/nuxt",
   ],
-  ssr: true,
+  ssr: false,
 
   runtimeConfig: {
     public: {
