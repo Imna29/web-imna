@@ -123,7 +123,7 @@ watch(iframe, () => {
                 Try other servers if it is taking too long to load.
             </div>
 
-            <iframe ref="iframe" :src="iframeSrc" class="w-full h-full z-50" frameborder="0" allowfullscreen sandbox></iframe>
+            <iframe ref="iframe" :src="iframeSrc" class="w-full h-full z-50" frameborder="0" allowfullscreen></iframe>
         </div>
     </Teleport>
 </template>
