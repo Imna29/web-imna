@@ -1,9 +1,9 @@
 <template>
     <div class="min-h-dvh">
-        <LazyToast />
-        <LazyDynamicDialog />
-        <LazyConfirmDialog></LazyConfirmDialog>
-        <LazyMiscLoadingIndicator></LazyMiscLoadingIndicator>
+        <Toast />
+        <DynamicDialog />
+        <ConfirmDialog></ConfirmDialog>
+        <MiscLoadingIndicator></MiscLoadingIndicator>
         <NuxtLayout>
             <NuxtPage />
         </NuxtLayout>
@@ -11,11 +11,20 @@
 </template>
 
 <script lang="ts" setup>
-import { register } from "swiper/element/bundle";
+let swiperInitialized = false;
+const initializeSwiper = async () => {
+  if (!swiperInitialized) {
+    const { register } = await import("swiper/element/bundle");
+    register();
+    swiperInitialized = true;
+  }
+};
 
-register();
+onBeforeMount(() => {
+  initializeSwiper();
+});
 
-const auth = useFirebaseAuth()!;
+const auth = useFirebaseAuth();
 const router = useRouter();
 const user = useCurrentUser();
 
@@ -26,7 +35,7 @@ watch(user, (user, prevUser) => {
     }
 });
 
-auth.onIdTokenChanged(async function (changedUser) {
+auth?.onIdTokenChanged(async function (changedUser) {
     if (changedUser) {
         const idToken = await changedUser.getIdToken();
         const tokenCookie = useCookie("authorization");

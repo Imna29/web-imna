@@ -15,7 +15,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     }
 
     if (user && (to.name === "login" || to.name === "register")) {
-        return abortNavigation("You are already logged in");
+        return navigateTo("/");
     }
 
     if (to.name !== "login" && to.name !== "register") {
@@ -26,7 +26,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
             headers: {
                 "authorization": idToken
             },
-            onResponse({request, response, options}) {
+            onResponse({ request, response, options }) {
                 if (response.status == 404 && to.name !== "register") {
                     navigateTo("/register/username")
                 }
@@ -34,7 +34,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
                 if (response.status != 404) {
                     //TODO: Better server error handling
-                    if (to.name == "register" || to.name == "register-username" || response.status == 500) {
+                    if (to.name == "register" || to.name == "register-username" || response.status == 500 || response.status == 400) {
                         navigateTo("/");
                     }
                 }

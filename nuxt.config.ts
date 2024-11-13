@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     "@nuxt/fonts",
     "@vee-validate/nuxt",
   ],
-  ssr: false,
+  ssr: true,
 
   runtimeConfig: {
     public: {
@@ -22,6 +22,11 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
+    '/': { prerender: true },
+    '/watch/**': { prerender: false, ssr: false },
+    '/login/**': { prerender: false, ssr: false },
+    '/register/**': { prerender: false, ssr: false },
+    '/gpt/**': { prerender: false, ssr: false },
     "/api/**": {
       proxy: process.env.NUXT_PUBLIC_API_BASE_URL + "/**",
     },
@@ -48,6 +53,6 @@ export default defineNuxtConfig({
     }
   },
   primevue: {
-   importTheme: {from: '~/themes/theme.js'}
+    importTheme: { from: '~/themes/theme.js' }
   },
 });

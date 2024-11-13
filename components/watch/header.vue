@@ -21,6 +21,7 @@ watch(route, () => {
 });
 
 const popOver = ref();
+const popOverProfile = ref();
 const isDrawerOpen = ref(false);
 </script>
 
@@ -52,6 +53,8 @@ const isDrawerOpen = ref(false);
                     }" class="cursor-pointer" @click="(event) => popOver.toggle(event)">
                         Explore
                     </div>
+                    <Divider></Divider>
+                    <NuxtLink to="/" class="text-muted-color hover:text-color-emphasis">Imna Digital Home</NuxtLink>
                     <Popover ref="popOver">
                         <div class="flex flex-col gap-2">
                             <div>
@@ -107,10 +110,13 @@ const isDrawerOpen = ref(false);
         </div>
 
         <div class="md:flex hidden items-center md:ml-5 ml-2">
-            <Avatar>
-                <AvatarImage :src="user?.photoURL ?? ''" alt="@radix-vue" />
-                <AvatarFallback>PP</AvatarFallback>
-            </Avatar>
+            <Avatar icon="pi pi-user" class="cursor-pointer" size="normal" shape="square"
+                @click="(event: Event) => popOverProfile.toggle(event)"></Avatar>
         </div>
+        <Popover ref="popOverProfile">
+            <div>
+                <NuxtLink to="/" class="">Go Home</NuxtLink>
+            </div>
+        </Popover>
     </div>
 </template>

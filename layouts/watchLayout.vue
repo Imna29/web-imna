@@ -5,7 +5,7 @@ const watchStore = useWatchStore();
 </script>
 
 <template>
-    <div class="md:mx-auto md:max-w-[1600px] md:px-1 px-2">
+    <div class="md:mx-auto md:max-w-[1600px] lg:px-4 sm:px-4 md:px-4 px-2"> 
         <LazyWatchHeader></LazyWatchHeader>
         <div class="pb-2 relative">
             <div
