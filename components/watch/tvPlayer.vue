@@ -37,6 +37,14 @@ const servers = [
         label: "Server 4",
         value: "3",
     },
+    {
+        label: "Server 5",
+        value: "4",
+    },
+    {
+        label: "Server 6",
+        value: "5",
+    },
 ];
 
 const episodes = computedAsync(async () => {
@@ -49,20 +57,24 @@ const episodes = computedAsync(async () => {
     ).episodes;
 }, []);
 
-const iframeSrc = computed(() => {
+const iframeSrc = asyncComputed(() => {
     switch (selectedSource.value) {
         case "0":
-            return `https://vidsrc.xyz/embed/tv?tmdb=${id}&season=${selectedSeason.value}&episode=${selectedEpisode.value}`;
+            return `https://vidlink.pro/tv/${id}/${selectedSeason.value}/${selectedEpisode.value}`;
         case "1":
-            return `https://moviesapi.club/tv/${id}-${selectedSeason.value}-${selectedEpisode.value}`;
+            return `https://vidsrc.cc/v2/embed/tv/${id}/${selectedSeason.value}/${selectedEpisode.value}`;
         case "2":
-            return `https://vidsrc.rip/embed/tv/${id}/${selectedSeason.value}/${selectedEpisode.value}`;
+            return `https://vidsrc.xyz/embed/tv?tmdb=${id}&season=${selectedSeason.value}&episode=${selectedEpisode.value}`;
         case "3":
             return `https://multiembed.mov/directstream.php?video_id=${id}&tmdb=1&s=${selectedSeason.value}&e=${selectedEpisode.value}`;
+        case "4":
+            return `https://www.2embed.cc/embedtv/${id}&s=${selectedSeason.value}&e=${selectedEpisode.value}`;
+        case "5":
+            return `https://moviesapi.club/tv/${id}-${selectedSeason.value}-${selectedEpisode.value}`;
+        default:
+            return "";
     }
-
-    return "";
-});
+}, "");
 
 watch(selectedSeason, () => {
     selectedEpisode.value = 1;
@@ -110,7 +122,7 @@ watch(iframe, () => {
                     <Select v-model="selectedSeason" class="rounded p-2" :options="tvData.seasons"
                         data-key="season_number" option-value="season_number" option-label="name">
                     </Select>
-                    <Select v-model="selectedEpisode" class="rounded p-2"  :options="episodes" v-if="episodes.length > 0"
+                    <Select v-model="selectedEpisode" class="rounded p-2" :options="episodes" v-if="episodes.length > 0"
                         option-value="episode_number" option-label="name">
                     </Select>
                     <Select v-model="selectedSource" class="rounded p-2" :options="servers" option-value="value"
