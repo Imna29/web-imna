@@ -25,25 +25,33 @@ const servers = [
         label: "Server 4",
         value: "3",
     },
+    {
+        label: "Server 5",
+        value: "4",
+    },
+    {
+        label: "Server 6",
+        value: "5",
+    },
 ];
 
 const iframeSrc = computed(() => {
     switch (selectedSource.value) {
         case "0":
-            return "https://vidsrc.xyz/embed/movie?tmdb=" + id;
+            return `https://vidlink.pro/movie/${id}`;
         case "1":
-            return "https://moviesapi.club/movie/" + id;
+            return `https://vidsrc.cc/v2/embed/movie/${id}}`;
         case "2":
-            return "https://vidsrc.rip/embed/movie/" + id;
+            return `https://vidsrc.xyz/embed/movie/${id}`;
         case "3":
-            return (
-                "https://multiembed.mov/directstream.php?video_id=" +
-                id +
-                "&tmdb=1"
-            );
+            return `https://multiembed.mov/directstream.php?video_id=${id}`;
+        case "4":
+            return `https://www.2embed.cc/embed/${id}`;
+        case "5":
+            return `https://moviesapi.club/movie/${id}`;
+        default:
+            return "";
     }
-
-    return "";
 });
 
 const historyPlaylist = (await watchStore.watchRepo.getAllPlaylists()).filter(
